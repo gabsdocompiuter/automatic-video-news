@@ -30,9 +30,11 @@ class JornalDoPovo:
         title = soup.find('h4').find('a').text
         image_url = soup.find('img', src=True)['src']
         link = soup.find('h4').find('a', href=True)['href']
+        description = soup.find('p').text
 
         return News(
             title=title,
+            description=description,
             image_url=image_url,
             link=link
         )
