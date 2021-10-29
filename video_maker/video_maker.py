@@ -1,3 +1,4 @@
+import util
 import ffmpeg
 
 class VideoMaker:
@@ -12,7 +13,7 @@ class VideoMaker:
         self.__audio = file
 
     def save_video(self: object, filename: str, extension='mp4') -> None:
-        file = f'{filename}.{extension}'
+        file = util.filename(filename, extension)
 
         input_still = ffmpeg.input(self.__background)
         input_audio = ffmpeg.input(self.__audio)
