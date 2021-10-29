@@ -133,3 +133,6 @@ outputs/
 
 # ffmpeg
 ffmpeg.exe
+
+# temp dir
+temp/
