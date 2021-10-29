@@ -2,7 +2,7 @@ from os import path
 import requests
 import shutil
 
-def download_image(image_url: str, output_dir: str) -> None:
+def download_image(image_url: str, output_dir: str) -> str:
     name = image_url.split("/")[-1]
     filename = path.join(output_dir, name)
 
@@ -12,6 +12,7 @@ def download_image(image_url: str, output_dir: str) -> None:
 
         with open(filename, 'wb') as f:
             shutil.copyfileobj(r.raw, f)
+        
+        return filename
     else:
-        #throw new Exception
-        pass
+        return None
