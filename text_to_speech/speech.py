@@ -9,8 +9,10 @@ class Speech:
     def add_phrase(self: object, phrase: str) -> None:
         self.__phrases += f'\r\n{phrase}'
 
-    def save(self: object, filename='speech', extension='.mp3') -> None:
+    def save(self: object, filename='speech', extension='.mp3') -> str:
         file = util.filename(filename, extension)
 
         self.__engine.save_to_file(self.__phrases, file)
         self.__engine.runAndWait()
+
+        return file
