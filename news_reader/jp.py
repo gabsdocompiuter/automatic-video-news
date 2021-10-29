@@ -35,7 +35,10 @@ class JornalDoPovo:
         link = soup.find('h4').find('a', href=True)['href']
         description = soup.find('p').text
 
+        id = link.split('/')[-1]
+
         return News(
+            id=id,
             title=title,
             description=description,
             image_url=image_url,
