@@ -19,4 +19,4 @@ class VideoMaker:
         input_audio = ffmpeg.input(self.__audio)
 
         out = ffmpeg.output(input_audio, input_still, file)
-        out.run()
+        out.run(overwrite_output=True)
