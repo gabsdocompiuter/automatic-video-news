@@ -128,5 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Mp3 files
-*.mp3
+# Outputs dir
+outputs/
