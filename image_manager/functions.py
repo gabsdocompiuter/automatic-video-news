@@ -3,8 +3,12 @@ import requests
 import shutil
 
 def download_image(image_url: str, output_dir: str, name='') -> str:
+    extension = image_url.split('.')[-1]
     if name == '':
         name = image_url.split("/")[-1]
+    else:
+        if extension not in name:
+            name = name + extension
         
     filename = path.join(output_dir, name)
 
