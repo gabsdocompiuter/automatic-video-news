@@ -8,14 +8,17 @@ class JornalDoPovo:
     def __init__(self: object) -> None:
         self.__endpoint = 'https://www.jornaldopovo.net/ultimas-noticias'
 
-    def get_headlines(self: object) -> List[News]:
+    def get_headlines(self: object, limit=20, remove_without_descritpion=True) -> List[News]:
         headlines_scrapeds = self.__scrape_headlines()
 
         headlines = []
         for hl in headlines_scrapeds:
-            headlines.append(self.__sanitize_headline(hl))
+            headline = self.__sanitize_headline(hl)
+            
+            if headline.description != '':
+                headlines.append(headline)
 
-        return headlines
+        return headlines[0:limit]
 
     def __scrape_headlines(self: object) -> BeautifulSoup:
         response = requests.get(self.__endpoint)
@@ -26,7 +29,7 @@ class JornalDoPovo:
 
         return site_news
 
-    def __sanitize_headline(self: object, soup: BeautifulSoup) -> List[News]:
+    def __sanitize_headline(self: object, soup: BeautifulSoup) -> News:
         title = soup.find('h4').find('a').text
         image_url = soup.find('img', src=True)['src']
         link = soup.find('h4').find('a', href=True)['href']
