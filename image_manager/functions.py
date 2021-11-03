@@ -1,6 +1,7 @@
 from os import path
 import requests
 import shutil
+import util
 
 
 def download_image(image_url: str, output_dir: str, name='') -> str:
@@ -9,7 +10,7 @@ def download_image(image_url: str, output_dir: str, name='') -> str:
         name = image_url.split("/")[-1]
     else:
         if extension not in name:
-            name = name + '.' + extension
+            name = util.filename(name, extension)
 
     filename = path.join(output_dir, name)
 
