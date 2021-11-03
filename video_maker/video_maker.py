@@ -1,22 +1,27 @@
+from moviepy.editor import *
 import util
-import ffmpeg
+
 
 class VideoMaker:
-    def __init__(self: object, background=None, audio=None) -> None:
-        self.__background = background
-        self.__audio = audio
-    
-    def set_background(self: object, file: str, image=True, video=False) -> None:
-        self.__background = file
+    def __init__(self: object) -> None:
+        self.__clips = []
 
-    def set_audio(self: object, file: str) -> None:
-        self.__audio = file
+    def create_clip(
+        self: object,
+        image_filename: str,
+        audio_filename: str,
+    ):
+        audio_clip = AudioFileClip(audio_filename)
+        clip = ImageClip(image_filename)
+
+        clip.audio = audio_clip
+        clip.duration = audio_clip.duration
+        clip.fps = 24
+
+        self.__clips.append(clip)
 
     def save_video(self: object, filename: str, extension='mp4') -> None:
         file = util.filename(filename, extension)
 
-        input_still = ffmpeg.input(self.__background)
-        input_audio = ffmpeg.input(self.__audio)
-
-        out = ffmpeg.output(input_audio, input_still, file)
-        out.run(overwrite_output=True)
+        video = concatenate_videoclips(self.__clips)
+        video.write_videofile(file)
