@@ -1,33 +1,13 @@
-from news_reader import JornalDoPovo
-from text_to_speech import Speech
-from video_maker import VideoMaker
-
-import image_manager
+from automatic_video_news import AutomaticVideoNews
 
 
-def run() -> None:
-    jp = JornalDoPovo()
-    vk = VideoMaker()
+def main() -> None:
+    video_news = AutomaticVideoNews()
 
-    headlines = jp.get_headlines(limit=10)
-    for headline in headlines:
-        print(headline)
-        image_file = image_manager.download_image(
-            headline.image_url,
-            output_dir='temp',
-            name=headline.id
-        )
+    video_news.read_news(jornal_povo=True)
 
-        sp = Speech()
-        sp.add_phrase(headline.title)
-        sp.add_phrase(headline.description)
-        audio_file = sp.save(f'temp/{headline.id}')
-
-        vk.create_clip(image_file, audio_file)
-        print()
-
-    vk.save_video(f'outputs/teste_10_news')
+    video_news.create_video('jp')
 
 
 if __name__ == '__main__':
-    run()
+    main()

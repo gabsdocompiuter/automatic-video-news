@@ -20,8 +20,10 @@ class VideoMaker:
 
         self.__clips.append(clip)
 
-    def save_video(self: object, filename: str, extension='mp4') -> None:
+    def save_video(self: object, filename: str, extension='mp4') -> str:
         file = util.filename(filename, extension)
 
         video = concatenate_videoclips(self.__clips)
         video.write_videofile(file)
+
+        return file
