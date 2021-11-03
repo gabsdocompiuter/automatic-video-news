@@ -1,0 +1,1 @@
+from .automatic_video_news import AutomaticVideoNews
